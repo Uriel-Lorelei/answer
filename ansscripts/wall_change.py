@@ -7,4 +7,4 @@ wall_path = os.path.join(home_dir, ".config", "images", "wallpapers")
 # wall_path = os.path.join(home_dir, "config", "images", "wallpapers")
 
 wallpaper = random.choice(os.listdir(wall_path))
-subprocess.run(["swww", "img", os.path.join(wall_path, wallpaper)])
+subprocess.run(["swww", "img", os.path.join(wall_path, wallpaper), "--transition-type=center"])
