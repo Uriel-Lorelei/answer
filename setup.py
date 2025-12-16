@@ -90,3 +90,5 @@ def main():
         print("skipping")
     else:
         print("Not a valid answer.")
+
+main()
