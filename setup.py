@@ -75,11 +75,12 @@ def main():
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     subprocess.run(["swww", "img", os.path.join(config_dir, "wallpapers", "escape_velocity.jpg")])
 
+    #change this
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
     subprocess.run(["chmod", "+x", "install.sh"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
-    subprocess.run(["papirus-folders", "-C", "black"])
-
+    #icons missing
+    
     yes_zsh = input("Add zsh?(y/n)\n> ").lower()
     if yes_zsh == "y":
         subprocess.run(["sudo", "pacman", "-S", "--noconfirm", "zsh"])
