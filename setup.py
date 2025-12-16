@@ -53,6 +53,7 @@ def yay():
     if add_yay in ["yes", "y"]:
         if shutil.which("yay"):
             print("Yay is already added or there is a conflicting command using yay.")
+            from_yay(yay_packs)
         else: #potential problem
             os.system(f"cd {home_dir} && mkdir -p yay_home && cd yay_home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si")
             from_yay(yay_packs)
@@ -69,10 +70,11 @@ def main():
         function(*args)
     print("CONFIGS ADDED")
     time.sleep(1)
+    subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     subprocess.run(["swww", "img", os.path.join(config_dir, "wallpapers", "escape_velocity.jpg")])
 
     os.system(f"cd && git clone https://github.com/vinceliuice/Graphite-gtk-theme.git")
-    subprocess.run(["chmod", "+x", "install.sh"], cwd="Graphite-gtk-theme")
+    subprocess.run(["chmod", "+x", "install.sh"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd="Graphite-gtk-theme")
     subprocess.run(["papirus-folders", "-C", "black"])
 
