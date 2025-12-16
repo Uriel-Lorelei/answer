@@ -60,6 +60,7 @@ def yay():
             from_yay(yay_packs)
     elif add_yay in ["no", "n"]:
         print("Skipping yay. A lot of packages wont be added.")
+        from_yay(yay_packs)
     else:
         print("Not a valid answer. Please try again.")
         yay()
