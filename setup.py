@@ -9,7 +9,7 @@ import time
 
 home_dir = os.path.expanduser("~")
 config_dir = os.path.join(home_dir, ".config")
-setup_dir = os.path.join(home_dir, "setup_dir")
+setup_dir = os.path.join(home_dir, "answer")
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "wallpapers"]
 packages = ["mesa", "hyprland", "wayland", "imagemagick", "base-devel", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "ttf-jetbrains-mono-nerd"]
 yay_packs = ["bibata-cursor-theme-bin", "papirus-icon-theme", "papirus-folders", "librewolf-bin"]
@@ -28,16 +28,13 @@ def install_package(packages):
         else:
             print(f"{package.upper()} is already installed.")
 
-def from_yay():
-    if yay == 1:
+def from_yay(yay_packs):
         for yp in yay_packs:
             install = subprocess.run(["yay", "-S", "--noconfirm", yp], capture_output=True, text=True)
             if install.returncode == 0:
                 print(f"Installed {yp}.")
             else:
                 print(install.stderr)
-    else:
-        print("A lot of packages are not installed because yay has not been added.")
 
 def copy(dir):
     for d in dir:    
@@ -58,15 +55,14 @@ def yay():
             print("Yay is already added or there is a conflicting command using yay.")
         else: #potential problem
             os.system(f"cd {home_dir} && mkdir -p yay_home && cd yay_home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si")
-            global is_yay
-            yay += 1
+            from_yay(yay_packs)
     elif add_yay in ["no", "n"]:
-        pass
+        print("Skipping yay. A lot of packages wont be added.")
     else:
         print("Not a valid answer. Please try again.")
         yay()
 
-functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ()), (from_yay, (yay_packs,))]
+functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
 
 def main():
     for function, args in functions:
