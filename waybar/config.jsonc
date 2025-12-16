@@ -8,13 +8,14 @@
     "spacing": 7, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces"
+        "tray",
+        "clock"
     ],
     "modules-center": [
-	"clock"
+        "hyprland/workspaces",
+        "hyprland/window"
     ],
     "modules-right": [
-        "tray",
         "pulseaudio",
         "network",
         "power-profiles-daemon",
@@ -34,15 +35,16 @@
 		"default": ""
 	},
        "persistent-workspaces": {
-             "*": 6, // 5 workspaces by default on every monitor
+             "*": 1, // 5 workspaces by default on every monitor
              "HDMI-A-1": 3 // but only three on HDMI-A-1
        }
     },
 
     "clock": {
         // "timezone": "America/New_York",
+        "format": "{:%a %H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%a, %d %b, %H:%M}"
     },
 
     "tray": {

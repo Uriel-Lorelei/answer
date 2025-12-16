@@ -1,7 +1,7 @@
 * {
 /* `otf-font-awesome` is required to be installed for icons */
 font-family: 'JetBrainsMono Nerd Font Propo', sans-serif;
-font-size: 17px;
+font-size: 20px;
 font-weight: bold;
 border-radius: 10px
 }
@@ -135,6 +135,7 @@ margin: 0 4px;
 
 #clock {
 background-color: #13151A;
+color: #EEB5C0
 }
 
 #battery {
