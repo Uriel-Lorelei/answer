@@ -11,10 +11,9 @@ import time
 home_dir = os.path.expanduser("~")
 config_dir = os.path.join(home_dir, ".config")
 setup_dir = os.path.join(home_dir, "answer")
-directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "wallpapers"]
+directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images"]
 packages = ["mesa", "hyprland", "wayland", "imagemagick", "base-devel", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "ttf-jetbrains-mono-nerd"]
-yay_packs = ["bibata-cursor-theme-bin", "papirus-icon-theme", "papirus-folders", "librewolf-bin"]
-is_yay = 0 
+yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
 def install_package(packages):
     for package in packages:
@@ -56,11 +55,12 @@ def yay():
             print("Yay is already added or there is a conflicting command using yay.")
             from_yay(yay_packs)
         else: #potential problem
-            os.system(f"cd {home_dir} && mkdir -p yay_home && cd yay_home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si")
+            #os.system(f"cd {home_dir} && mkdir -p yay_home && cd yay_home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si")
+            subprocess.run(["git", "clone", "https://aur.archlinux.org/yay.git"], cwd=home_dir)
+            subprocess.run(["makepkg", "-si"], cwd=os.path.join(home_dir, "yay"))
             from_yay(yay_packs)
     elif add_yay in ["no", "n"]:
         print("Skipping yay. A lot of packages wont be added.")
-        from_yay(yay_packs)
     else:
         print("Not a valid answer. Please try again.")
         yay()
@@ -73,7 +73,7 @@ def main():
     print("CONFIGS ADDED")
     time.sleep(1)
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
-    subprocess.run(["swww", "img", os.path.join(config_dir, "wallpapers", "escape_velocity.jpg")])
+    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg")])
 
     #change this
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
