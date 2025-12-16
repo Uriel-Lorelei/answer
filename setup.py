@@ -66,7 +66,7 @@ def yay():
         print("Not a valid answer. Please try again.")
         yay()
 
-functions = [(install_package, packages), (backup, directories), (copy, directories), (yay, ()), (from_yay, yay_packs)]
+functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ()), (from_yay, (yay_packs,))]
 
 def main():
     for function, args in functions:
