@@ -75,7 +75,7 @@ def main():
 
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
     subprocess.run(["chmod", "+x", "install.sh"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
-    subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd="Graphite-gtk-theme")
+    subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     subprocess.run(["papirus-folders", "-C", "black"])
 
     yes_zsh = input("Add zsh?(y/n)\n> ").lower()
