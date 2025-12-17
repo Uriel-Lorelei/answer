@@ -16,3 +16,5 @@ Wallpapers are mostly from another pre-configuration of Hyprland called Hyde and
 
 The default browser on this configuration is librewolf. There is chance that it isn't added. If it hasn't do:
 > yay -S librewolf-bin
+
+To change the wallpaper, you can do: 'SUPER + SHIFT + right arrow key' which randomly changes the wallpaper and you can do 'SUPER + R' to reload waybar.
