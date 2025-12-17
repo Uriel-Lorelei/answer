@@ -11,7 +11,7 @@ home_dir = os.path.expanduser("~")
 config_dir = os.path.join(home_dir, ".config")
 setup_dir = os.path.join(home_dir, "answer")
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images", "ansscripts"]
-packages = ["mesa", "hyprland", "wayland", "kate", "imagemagick", "base-devel", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "ttf-jetbrains-mono-nerd"]
+packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "ttf-jetbrains-mono-nerd"]
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
 def install_package(packages):
@@ -67,6 +67,9 @@ def yay():
 def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
+def pip_ins(name):
+    subprocess.run(["pip", "install", name], cwd=os.path.join(config_dir, "ansscripts"))
+
 functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
 
 def main():
@@ -78,10 +81,12 @@ def main():
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg")])
 
     mod("waykill.sh", config_dir, "ansscripts")
-
+    subprocess.run(["python3", "-m", "venv", "venv"], cwd=os.path.join(config_dir, "ansscripts"))
+    subprocess.run(["source", "venv/bin/activate"], cwd=os.path.join(config_dir, "ansscripts"))
+    pip_ins("sympy")
+    
     #change this
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
-    #subprocess.run(["chmod", "+x", "install.sh"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     mod("install.sh", home_dir, "Graphite-gtk-theme")
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     #icons missing
