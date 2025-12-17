@@ -18,3 +18,5 @@ The default browser on this configuration is librewolf. There is chance that it 
 > yay -S librewolf-bin
 
 To change the wallpaper, you can do: 'SUPER + SHIFT + right arrow key' which randomly changes the wallpaper and you can do 'SUPER + R' to reload waybar.
+
+In order to change to dark-mode, you can open nwg-look to change to theme downloaded from Graphite-gtk-theme.
