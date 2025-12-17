@@ -7,7 +7,7 @@ home_dir = os.path.expanduser("~")
 config_dir = os.path.join(home_dir, ".config")
 setup_dir = os.path.join(home_dir, "answer")
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images", "ansscripts"]
-packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "python-sympy", "ttf-jetbrains-mono-nerd"]
+packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "python-sympy", "swayosd", "ttf-jetbrains-mono-nerd"]
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
 def install_package(packages):
@@ -71,6 +71,10 @@ def main():
         function(*args)
     print("CONFIGS ADDED")
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
+    
+    subprocess.run(["sudo", "statusctl", "enable", "swayosd-libinput-backend.service"])
+    subprocess.run(["sudo", "statusctl", "start", "swayosd-libinput-backend.service"])
+    subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg"), "--transition-type=center"])
 
