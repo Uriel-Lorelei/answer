@@ -3,19 +3,16 @@ import subprocess
 import shutil
 import time
 
-#a = subprocess.run(["nyancat"], capture_output=True, text=True)
-#print(a.stdout)
-#print(a.stderr)
-
 home_dir = os.path.expanduser("~")
 config_dir = os.path.join(home_dir, ".config")
 setup_dir = os.path.join(home_dir, "answer")
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images", "ansscripts"]
-packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "ttf-jetbrains-mono-nerd"]
+packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "python-sympy", "ttf-jetbrains-mono-nerd"]
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
 def install_package(packages):
     for package in packages:
+        subprocess.run(["sudo", "pacman", "-Syy"])
         check = subprocess.run(["pacman", "-Q", package], capture_output=True, text=True)
         if check.returncode != 0:
             print(f"Installing {package}...")
@@ -33,7 +30,7 @@ def from_yay(yay_packs):
             if install.returncode == 0:
                 print(f"Installed {yp}.")
             else:
-                print(install.stderr)
+                print(f"ERROR: While installing -{yp}-,this happened:\n{install.stderr}")
 
 def copy(dir):
     for d in dir:    
@@ -67,28 +64,22 @@ def yay():
 def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
-def pip_ins(name):
-    subprocess.run(["pip", "install", name], cwd=os.path.join(config_dir, "ansscripts"))
-
 functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
 
 def main():
     for function, args in functions:
         function(*args)
     print("CONFIGS ADDED")
+    subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
-    subprocess.run(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
-    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg")])
+    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg"), "--transition-type=center"])
 
     mod("waykill.sh", config_dir, "ansscripts")
-    subprocess.run(["python3", "-m", "venv", "venv"], cwd=os.path.join(config_dir, "ansscripts"))
-    subprocess.run(["source", "venv/bin/activate"], cwd=os.path.join(config_dir, "ansscripts"))
-    pip_ins("sympy")
-    
-    #change this
+
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
     mod("install.sh", home_dir, "Graphite-gtk-theme")
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
+    
     #icons missing
     
     yes_zsh = input("Add zsh?(y/n)\n> ").lower()
