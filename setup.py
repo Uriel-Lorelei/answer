@@ -72,8 +72,8 @@ def main():
     print("CONFIGS ADDED")
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     
-    subprocess.run(["sudo", "statusctl", "enable", "swayosd-libinput-backend.service"])
-    subprocess.run(["sudo", "statusctl", "start", "swayosd-libinput-backend.service"])
+    subprocess.run(["sudo", "systemctl", "enable", "swayosd-libinput-backend.service"])
+    subprocess.run(["sudo", "systemctl", "start", "swayosd-libinput-backend.service"])
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg"), "--transition-type=center"])
