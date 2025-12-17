@@ -14,6 +14,5 @@ This configuration uses waybar, mako, wofi, kitty and nwg-look for configuration
 Most of the configurations done are just basic changes and there are only few external additions.
 Wallpapers are mostly from another pre-configuration of Hyprland called Hyde and others are my own addition found on the Internet.
 
-The default browser on this configuration is librewolf. It may not download so do:
+The default browser on this configuration is librewolf. There is chance that it isn't added. If it hasn't do:
 > yay -S librewolf-bin
-if librewolf was not added.
