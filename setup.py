@@ -12,7 +12,6 @@ yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
 def install_package(packages):
     for package in packages:
-        subprocess.run(["sudo", "pacman", "-Syy"])
         check = subprocess.run(["pacman", "-Q", package], capture_output=True, text=True)
         if check.returncode != 0:
             print(f"Installing {package}...")
@@ -67,6 +66,7 @@ def mod(name, dir, category):
 functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
 
 def main():
+    subprocess.run(["sudo", "pacman", "-Syy"])
     for function, args in functions:
         function(*args)
     print("CONFIGS ADDED")
