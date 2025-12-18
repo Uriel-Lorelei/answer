@@ -60,6 +60,17 @@ def yay():
         print("Not a valid answer. Please try again.")
         yay()
 
+def reboot():
+    reboot = input("Would you like to reboot the PC in order to apply the changes?\nYou can also do this later.\n(y/n)> ").lower()
+    if reboot == "y":
+        print("Rebooting...")
+        time.sleep(1)
+        subprocess.run(["reboot"])
+    elif reboot == "n":
+        print("Okay!")
+    else:
+        print("Not a valid answer.")
+
 def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
@@ -87,6 +98,7 @@ def main():
     #icons missing
     
     yes_zsh = input("Add zsh?(y/n)\n> ").lower()
+    
     if yes_zsh == "y":
         subprocess.run(["sudo", "pacman", "-S", "--noconfirm", "zsh"])
         subprocess.run(["sudo", "chsh", "-s", "/bin/zsh"])
@@ -96,5 +108,8 @@ def main():
         print("skipping")
     else:
         print("Not a valid answer.")
+    
+    reboot()
+    
 
 main()
