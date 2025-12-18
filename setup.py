@@ -44,7 +44,7 @@ def backup(dir):
             print(f"{d} not found. Skipping...")
 
 def yay():
-    add_yay = input("Do you want to add yay?(y/n)\n> ").lower()
+    add_yay = input("Do you want to add yay(including firefox and a mouse cursor theme!)(y/n)\n> ").lower()
     if add_yay in ["yes", "y"]:
         if shutil.which("yay"):
             print("Yay is already added or there is a conflicting command using yay.")
@@ -59,17 +59,6 @@ def yay():
     else:
         print("Not a valid answer. Please try again.")
         yay()
-
-def reboot():
-    reboot = input("Would you like to reboot the PC in order to apply the changes?\nYou can also do this later.\n(y/n)> ").lower()
-    if reboot == "y":
-        print("Rebooting...")
-        time.sleep(1)
-        subprocess.run(["reboot"])
-    elif reboot == "n":
-        print("Okay!")
-    else:
-        print("Not a valid answer.")
 
 def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
@@ -97,8 +86,7 @@ def main():
     
     #icons missing
     
-    yes_zsh = input("Add zsh?(y/n)\n> ").lower()
-    
+    yes_zsh = input("Add zsh?(y/n)\n> ").lower()   
     if yes_zsh == "y":
         subprocess.run(["sudo", "pacman", "-S", "--noconfirm", "zsh"])
         subprocess.run(["sudo", "chsh", "-s", "/bin/zsh"])
@@ -109,7 +97,4 @@ def main():
     else:
         print("Not a valid answer.")
     
-    reboot()
-    
-
 main()
