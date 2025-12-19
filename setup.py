@@ -76,7 +76,7 @@ def main():
     subprocess.run(["sudo", "systemctl", "start", "swayosd-libinput-backend.service"])
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
-    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "escape_velocity.jpg"), "--transition-type=center"])
+    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
 
     mod("waykill.sh", config_dir, "ansscripts")
 
