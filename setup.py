@@ -77,7 +77,8 @@ def main():
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
-
+    subprocess.run(["sudo", "mv", "/etc/ly/config.ini", "/etc/ly/config_backup"])
+    subprocess.run(["sudo", "cp", os.path.join(setup_dir, "ly", "config.ini"), "/etc/ly/config.ini"])
     mod("waykill.sh", config_dir, "ansscripts")
 
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
