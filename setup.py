@@ -78,6 +78,7 @@ def main():
     time.sleep(1)
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
     subprocess.run(["sudo", "mv", "/etc/ly/config.ini", "/etc/ly/config_backup"])
+    subprocess.run(["sudo", "systemctl", "enable", "ly@tty2.service"])
     subprocess.run(["sudo", "cp", os.path.join(setup_dir, "ly", "config.ini"), "/etc/ly/config.ini"])
     mod("waykill.sh", config_dir, "ansscripts")
 
