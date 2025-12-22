@@ -49,7 +49,7 @@ def yay():
         if shutil.which("yay"):
             print("Yay is already added or there is a conflicting command using yay.")
             from_yay(yay_packs)
-        else: #potential problem
+        else:
             #os.system(f"cd {home_dir} && mkdir -p yay_home && cd yay_home && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si")
             subprocess.run(["git", "clone", "https://aur.archlinux.org/yay.git"], cwd=home_dir)
             subprocess.run(["makepkg", "-si"], cwd=os.path.join(home_dir, "yay"))
