@@ -26,8 +26,7 @@
     },*/
     {
       "type": "kernel",
-      "key": "🐧 Kernel",
-      "format": "{2}"
+      "key": "🐧 Kernel"
     },
     {
       "type": "uptime",
