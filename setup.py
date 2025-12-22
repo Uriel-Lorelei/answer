@@ -3,21 +3,25 @@ import subprocess
 import shutil
 import time
 
-home_dir = os.path.expanduser("~")
-config_dir = os.path.join(home_dir, ".config")
-setup_dir = os.path.join(home_dir, "answer")
+home_dir = os.path.expanduser("~") # to make it easy for myself
+config_dir = os.path.join(home_dir, ".config") # the destination of config files
+setup_dir = os.path.join(home_dir, "answer") # cloned directory
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images", "ansscripts"]
+
+# packages to add using pacman
 packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "python-sympy", "swayosd", "ly", "ttf-jetbrains-mono-nerd"]
+
+# packages to add using yay
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
 def install_package(packages):
     for package in packages:
         check = subprocess.run(["pacman", "-Q", package], capture_output=True, text=True)
         if check.returncode != 0:
-            print(f"Installing {package}...")
+            print(f"Installing --> {package}...")
             install = subprocess.run(["sudo","pacman", "-S", "--noconfirm", package], capture_output=True, text=True)
             if install.returncode == 0:
-                print(f"Installed {package}.")
+                print(f"Installed --> {package}!")
             else:
                 print(install.stderr)
         else:
@@ -27,7 +31,7 @@ def from_yay(yay_packs):
         for yp in yay_packs:
             install = subprocess.run(["yay", "-S", "--noconfirm", yp], capture_output=True, text=True)
             if install.returncode == 0:
-                print(f"Installed {yp}.")
+                print(f"Installed --> {yp}.")
             else:
                 print(f"ERROR: While installing -{yp}-,this happened:\n{install.stderr}")
 
@@ -79,27 +83,36 @@ functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (d
 
 def main():
     subprocess.run(["sudo", "pacman", "-Syy"])
+    
+    # perform all downloads and moves the required config to .config
     for function, args in functions:
         function(*args)
     print("CONFIGS ADDED")
+    
+    # starts swww daemon so that wallpaper can be changed later
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     
+    # sets up sway-osd (responsible for changing volumes and brightness) and changes wallpaper
     subprocess.run(["sudo", "systemctl", "enable", "swayosd-libinput-backend.service"])
     subprocess.run(["sudo", "systemctl", "start", "swayosd-libinput-backend.service"])
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
     
+    # adds ly if True
     add_ly()
 
+    # making sure the script can run
     mod("waykill.sh", config_dir, "ansscripts")
 
+    # this is a theme for mainly dark mode for gtk apps
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
     mod("install.sh", home_dir, "Graphite-gtk-theme")
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     
-    #icons missing
+    #icons missing (may or may not add them later)
     
+    # adds zsh and oh my zsh to change the theme of kitty
     yes_zsh = input("Add zsh?(y/n)\n> ").lower()   
     if yes_zsh == "y":
         subprocess.run(["sudo", "pacman", "-S", "--noconfirm", "zsh"])
