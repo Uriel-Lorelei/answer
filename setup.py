@@ -60,6 +60,18 @@ def yay():
         print("Not a valid answer. Please try again.")
         yay()
 
+def add_ly():
+    is_ly = input("Would you like to add ly as your display manager?(y/n)\n> ").lower()
+    if is_ly == "y":
+        subprocess.run(["sudo", "mv", "/etc/ly/config.ini", "/etc/ly/config_backup"])
+        subprocess.run(["sudo", "systemctl", "enable", "ly@tty2.service"])
+        subprocess.run(["sudo", "cp", os.path.join(setup_dir, "ly", "config.ini"), "/etc/ly/config.ini"])
+    elif is_ly == "n":
+        print("Skipping ly...")
+    else:
+        print("Not a valid answer.")
+        add_ly()
+
 def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
@@ -77,9 +89,9 @@ def main():
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
     subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
-    subprocess.run(["sudo", "mv", "/etc/ly/config.ini", "/etc/ly/config_backup"])
-    subprocess.run(["sudo", "systemctl", "enable", "ly@tty2.service"])
-    subprocess.run(["sudo", "cp", os.path.join(setup_dir, "ly", "config.ini"), "/etc/ly/config.ini"])
+    
+    add_ly()
+
     mod("waykill.sh", config_dir, "ansscripts")
 
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
