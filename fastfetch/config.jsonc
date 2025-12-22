@@ -3,41 +3,92 @@
   "logo": {
     "type": "kitty",
     "source": "$HOME/.config/images/logos/rikka.png",
-    "height": 25
+    "height": 18
   },
   "modules": [
-    {
+    /*{
       "type": "command",
       "key": "->",
       "text": "splash=$(hyprctl splash);echo $splash"
-    },
-    "title",
-    "separator",
-    "os",
+    },*/
     {
+      "type": "title",
+      "key": "🧙🏻‍♀️"
+    },
+    "separator",
+    {
+      "type": "os",
+      "key": "🤖 OS"
+    },
+    /*{
       "type": "host",
       "format": "{2}"
+    },*/
+    {
+      "type": "kernel",
+      "key": "🐧 Kernel",
+      "format": "{2}"
     },
-    "kernel",
-    "uptime",
-    "packages",
-    "shell",
-    "display",
+    {
+      "type": "uptime",
+      "key": "⌛ Uptime"
+    },
+    {
+      "type": "packages",
+      "key": "📦 Packages"
+    },
+    {
+      "type": "shell",
+      "key": "🐚 Shell"
+    },
+    {
+      "type": "display",
+      "key": "📺 Display"
+    },
     "de",
-    "wmtheme",
-    "font",
-    "cursor",
-    "terminal",
-    "terminalfont",
-    "cpu",
-    "gpu",
-    "memory",
-    "swap",
-    "disk",
-    "localip",
-    "battery",
+    // "wmtheme",
+    // "font",
+    // "cursor",
+    // "terminal",
+    // "terminalfont",
+    {
+      "type": "custom",
+      "format": "========================="
+    },
+    {
+      "type": "cpu",
+      "key": "⚙️ CPU"
+    },
+    {
+      "type": "gpu",
+      "key": "🎮 GPU"
+    },
+    {
+      "type": "memory",
+      "key": "🧠 Memory"
+    },
+    {
+      "type": "swap",
+      "key": "🧠 Swap"
+    },
+    {
+      "type": "disk",
+      "key": "💽 Disk"
+    },
+    {
+      "type": "localip",
+      "key": "📨 Local IP {2}"
+    },
+    {
+      "type": "battery",
+      "key": "🔋 Battery"
+    },
     "poweradapter",
-    "break",
-    "colors"
+    "separator",
+    {
+      "type": "colors",
+      "paddingLeft": 1,
+      "symbol": "circle"
+    }
   ]
 }
