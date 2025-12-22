@@ -44,7 +44,7 @@ def backup(dir):
             print(f"{d} not found. Skipping...")
 
 def yay():
-    add_yay = input("Do you want to add yay(including firefox and a mouse cursor theme!)(y/n)\n> ").lower()
+    add_yay = input("Do you want to add yay(including librewolf and a mouse cursor theme!)(y/n)\n> ").lower()
     if add_yay in ["yes", "y"]:
         if shutil.which("yay"):
             print("Yay is already added or there is a conflicting command using yay.")
