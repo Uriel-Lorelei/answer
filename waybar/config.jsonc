@@ -97,9 +97,9 @@
         // "format-ethernet": "{essid}",
         "format-ethernet": "{ifname} ",
         // "format-wifi": "{essid}",
-        "format-wifi": "{ifname} ",
+        // "format-wifi": "{ifname} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-linked": "{ifname} (No IP)",
         "format-disconnected": "Disconnected ⚠",
         // "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "nm-connection-editor"
