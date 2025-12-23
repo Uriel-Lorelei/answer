@@ -17,11 +17,11 @@
     ],
     "modules-right": [
         "pulseaudio",
-        "network",
-        "power-profiles-daemon",
         "backlight",
         "custom/media",
-        "battery"
+        "network",
+        "battery",
+        "power-profiles-daemon"
     ],
     "hyprland/workspaces": {
 	"format": "{name}",
