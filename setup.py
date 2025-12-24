@@ -118,7 +118,7 @@ users_packs = []
 def main():
     subprocess.run(["sudo", "pacman", "-Syy"])
     
-    # perform all downloads and moves the required config to .config
+    # perform all downloads and moves the required configs to .config
     for function, args in functions:
         function(*args)
     print("CONFIGS ADDED")
