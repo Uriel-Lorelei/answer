@@ -3,7 +3,7 @@ import os
 import re
 
 # this code is to change the wallpaper
-# in alphabetical order!!!
+# in reverse alphabetical order!!!
 
 # giving the directory a variable
 home_dir = os.path.expanduser("~")
@@ -15,12 +15,14 @@ hyprlock_path = os.path.join(home_dir, ".config", "hypr", "hyprlock.conf")
 wallpapers = os.listdir(wall_path)
 wallpapers.sort(reverse=True)
 
-# swww query gets the current wallpaper and search gets the exact name of the wallpaper
-check = subprocess.run(["swww", "query"], capture_output=True, text=True)
-search = re.search(r'(?<=wallpapers/).*', check.stdout) # gives everything after 'wallpapers/'
+def current_wall():
+    # swww query gets the current wallpaper and search gets the exact name of the wallpaper
+    check = subprocess.run(["swww", "query"], capture_output=True, text=True)
+    search = re.search(r'(?<=wallpapers/).*', check.stdout) # gives everything after 'wallpapers/'
+    return search
 
 # a is the index number from the list of wallpapers + 1
-a = wallpapers.index(search.group(0)) + 1
+a = wallpapers.index(current_wall().group(0)) + 1
 
 # the wall_list gets the name of wallpapers after the current wallpaper
 wall_list = []
@@ -37,24 +39,15 @@ if wall_list == []:
 else:
     subprocess.run(["swww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
 
-# copies the current wallpaper to another folder and renames it so that it can be used in hyprlock
-os.system("rm -rf ~/.config/ansscripts/lock_screen/*")
-subprocess.run(["cp", os.path.join(wall_path, wall_list[0]), os.path.join(ansscripts, "lock_screen")])
-
-# this gets the extension and copies it with its actual extension 
-extension = os.path.splitext(wall_list[0])[1].lower()
-subprocess.run(["mv", os.listdir(os.path.join(ansscripts, "lock_screen"))[0], f"current-wall{extension}"], cwd=os.path.join(ansscripts, "lock_screen"))
-
-# changes the hyprlock background
-curr_wall = os.listdir(os.path.join(ansscripts, "lock_screen"))
-pre_wall = ["current-wall.png", "current-wall.jpg", "current-wall.jpeg", "current-wall.webp"]
+# to replace the wallpaper in hyprlock
+curr_wall = current_wall().group(0)
 
 with open(hyprlock_path, "r") as f:
     data = f.read()
 
-for word in pre_wall:
+for word in wallpapers:
     if word in data:
-        data = data.replace(word, curr_wall[0])
+        data = data.replace(word, curr_wall)
 
 with open(hyprlock_path, "w") as f:
     f.write(data)
