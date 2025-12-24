@@ -29,4 +29,8 @@ for w in range(len(wallpapers)):
         pass
 
 # changes the wallpaper!
-subprocess.run(["swww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
+if wall_list == []:
+    wall_list = wallpapers
+    subprocess.run(["swww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
+else:
+    subprocess.run(["swww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
