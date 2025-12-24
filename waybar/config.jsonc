@@ -53,7 +53,6 @@
         "icons": {
             "nm-connection-editor": ""
         //   "blueman": "bluetooth",
-        //   "librewolf": "/usr/share/icons/hicolor/16x16/apps/librewolf.png"
         }
     },
 
@@ -72,7 +71,7 @@
         "format": "{capacity}% {icon}",
         "format-full": "{capacity}% {icon}",
         "format-charging": "{capacity}% {icon}",
-        "format-plugged": "{capacity}% ",
+        "format-plugged": "{capacity}% U",
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
@@ -107,8 +106,8 @@
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-bluetooth": " {volume}% ",
+        "format-bluetooth-muted": " {volume}%  {format_source}",
         "format-muted": "{volume}% {icon}",
         "format-source": "{volume}% ",
         "format-source-muted": "{icon}",
