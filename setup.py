@@ -94,23 +94,23 @@ def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
 # function to download gpu
-def gpu():
-    print("What GPU drivers would you like to add?")
-    print("1. Intel\n2. AMD\n3. NVIDIA\n4. I don't trust you. I will do it myself.(skip)")
-    user_ans = int(input("--> "))
-    if user_ans == 1:
-        add_extra_packages(["vulkan-intel", "intel-media-driver"])
-    elif user_ans == 2:
-        add_extra_packages(["vulkan-radeon", "xf86-video-amdgpu", "lib32-vulkan-radeon"])
-    elif user_ans == 3:
-        print("You make have some problems using Nvidia. Be careful.")
-        time.sleep(1)
-        add_extra_packages(["nvidia-open", "nvidia-utils", "nvidia-settings", "egl-wayland"])
-    elif user_ans == 4:
-        print(":( skipping...")
-    else:
-        print("Not a valid answer.")
-        gpu()
+# def gpu():
+#     print("What GPU drivers would you like to add?")
+#     print("1. Intel\n2. AMD\n3. NVIDIA\n4. I don't trust you. I will do it myself.(skip)")
+#     user_ans = int(input("--> "))
+#     if user_ans == 1:
+#         add_extra_packages(["vulkan-intel", "intel-media-driver"])
+#     elif user_ans == 2:
+#         add_extra_packages(["vulkan-radeon", "xf86-video-amdgpu", "lib32-vulkan-radeon"])
+#     elif user_ans == 3:
+#         print("You make have some problems using Nvidia. Be careful.")
+#         time.sleep(1)
+#         add_extra_packages(["nvidia-open", "nvidia-utils", "nvidia-settings", "egl-wayland"])
+#     elif user_ans == 4:
+#         print(":( skipping...")
+#     else:
+#         print("Not a valid answer.")
+#         gpu()
 
 functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
 users_packs = []
@@ -123,8 +123,8 @@ def main():
         function(*args)
     print("CONFIGS ADDED")
     
-    time.sleep(1)
-    gpu()
+    # time.sleep(1)
+    # gpu()
     
     # extra_packs = input("Would you like to add some of your own preferred packages?(y/n)\n> ").lower()
     # if extra_packs == "y":
