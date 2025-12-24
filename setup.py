@@ -9,12 +9,12 @@ setup_dir = os.path.join(home_dir, "answer") # cloned directory
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images", "ansscripts"]
 
 # packages to add using pacman
-packages = ["mesa", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "python-sympy", "swayosd", "ly", "ttf-jetbrains-mono-nerd"]
+packages = ["mesa", "lib32-mesa", "vulkan-icd-loader", "lib32-vulkan-icd-loader", "linux-headers", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "hypridle", "python-sympy", "swayosd", "ly", "libmtp", "gvfs-mtp", "android-udev", "ttf-jetbrains-mono-nerd"]
 
 # packages to add using yay
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
-def install_package(packages):
+def install_package(packages: list):
     for package in packages:
         check = subprocess.run(["pacman", "-Q", package], capture_output=True, text=True)
         if check.returncode != 0:
@@ -26,6 +26,19 @@ def install_package(packages):
                 print(install.stderr)
         else:
             print(f"{package.upper()} is already installed.")
+
+def add_extra_packages(packs: list):
+    for p in packs:
+        check = subprocess.run(["pacman", "-Q", p], capture_output=True, text=True)
+        if check.returncode != 0:
+            print(f"Installing --> {p}...")
+            install = subprocess.run(["sudo","pacman", "-S", "--noconfirm", p], capture_output=True, text=True)
+            if install.returncode == 0:
+                print(f"Installed --> {p}!")
+            else:
+                print(install.stderr)
+        else:
+            print(f"{p.upper()} is already installed.")
 
 def from_yay(yay_packs):
         for yp in yay_packs:
@@ -76,10 +89,31 @@ def add_ly():
         print("Not a valid answer.")
         add_ly()
 
+# this function just make files executable
 def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
+# function to download gpu
+def gpu():
+    print("What GPU drivers would you like to add?")
+    print("1. Intel\n2. AMD\n3. NVIDIA\n4. I don't trust you. I will do it myself.(skip)")
+    user_ans = int(input("--> "))
+    if user_ans == 1:
+        add_extra_packages(["vulkan-intel", "intel-media-driver"])
+    elif user_ans == 2:
+        add_extra_packages(["vulkan-radeon", "xf86-video-amdgpu", "lib32-vulkan-radeon"])
+    elif user_ans == 3:
+        print("You make have some problems using Nvidia. Be careful.")
+        time.sleep(1)
+        add_extra_packages(["nvidia-open", "nvidia-utils", "nvidia-settings", "egl-wayland"])
+    elif user_ans == 4:
+        print(":( skipping...")
+    else:
+        print("Not a valid answer.")
+        gpu()
+
 functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
+users_packs = []
 
 def main():
     subprocess.run(["sudo", "pacman", "-Syy"])
@@ -89,6 +123,13 @@ def main():
         function(*args)
     print("CONFIGS ADDED")
     
+    time.sleep(1)
+    gpu()
+    
+    # extra_packs = input("Would you like to add some of your own preferred packages?(y/n)\n> ").lower()
+    # if extra_packs == "y":
+    #     list_extra_packs
+
     # starts swww daemon so that wallpaper can be changed later
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     
