@@ -10,17 +10,10 @@ Then you can run the script by going to the answer directory and running:
 And that's it.
 Although you may have to put your password mutiple times.
 
-Make sure to use this configuration on fresh hyprland install. Although there shouldn't be much problem when using this on an already configured hyprland.
+Make sure to use this configuration on fresh hyprland install for intended performance. Otherwise there may be conflict between configs.
 
-This configuration uses waybar, mako, wofi, kitty, swayosd, and nwg-look for configuration. 
+This configuration uses waybar, mako, wofi, kitty, swayosd, ly, and nwg-look for configuration. 
 Most of the configurations done are just basic changes and there are only few external additions.
 Wallpapers are mostly from another pre-configuration of Hyprland called Hyde and others are my own addition found on the Internet.
 
-The default browser on this configuration is librewolf. There is chance that it isn't added. If it hasn't do:
-> yay -S librewolf-bin
-
-If you like to use another browser, change the default browser in '.config/hypr/hyprland.conf' after downloading one.
-
-To change the wallpaper, you can do: 'SUPER + SHIFT + right arrow key' which randomly changes the wallpaper and you can do 'SUPER + R' to reload waybar.
-
-In order to change to dark-mode, you can open nwg-look to change to theme downloaded from Graphite-gtk-theme.
+The keybindings for this configuration are in 'keybindings.md'.
