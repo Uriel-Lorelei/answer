@@ -47,7 +47,10 @@ with open(hyprlock_path, "r") as f:
 
 for word in wallpapers:
     if word in data:
-        data = data.replace(word, curr_wall)
+        if os.path.splitext(curr_wall)[1].lower() == ".gif".lower():
+            data = data.replace(word, wallpapers[0])
+        else:
+            data = data.replace(word, curr_wall)
 
 with open(hyprlock_path, "w") as f:
     f.write(data)
