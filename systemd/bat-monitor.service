@@ -1,0 +1,10 @@
+[Unit]
+Description=Personal Battery Monitor Script
+
+[Service]
+ExecStart=/usr/bin/python3 %h/.config/ansscripts/bat_check.py
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=default.target

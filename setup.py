@@ -2,11 +2,13 @@ import os
 import subprocess
 import shutil
 import time
+from extra_setup import systemd_files, zsh_setup
 
 home_dir = os.path.expanduser("~") # to make it easy for myself
 config_dir = os.path.join(home_dir, ".config") # the destination of config files
 setup_dir = os.path.join(home_dir, "answer") # cloned directory
 directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi", "images", "ansscripts"]
+systemd_services_files = os.listdir(os.path.join(setup_dir, "systemd"))
 
 # packages to add using pacman
 packages = ["mesa", "lib32-mesa", "vulkan-icd-loader", "lib32-vulkan-icd-loader", "linux-headers", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "cliphist", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "hyprshot", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "python-sympy", "swayosd", "ly", "libmtp", "gvfs-mtp", "android-udev", "ttf-jetbrains-mono-nerd"]
@@ -26,19 +28,6 @@ def install_package(packages: list):
                 print(install.stderr)
         else:
             print(f"{package.upper()} is already installed.")
-
-def add_extra_packages(packs: list):
-    for p in packs:
-        check = subprocess.run(["pacman", "-Q", p], capture_output=True, text=True)
-        if check.returncode != 0:
-            print(f"Installing --> {p}...")
-            install = subprocess.run(["sudo","pacman", "-S", "--noconfirm", p], capture_output=True, text=True)
-            if install.returncode == 0:
-                print(f"Installed --> {p}!")
-            else:
-                print(install.stderr)
-        else:
-            print(f"{p.upper()} is already installed.")
 
 def from_yay(yay_packs):
         for yp in yay_packs:
@@ -94,7 +83,6 @@ def mod(name, dir, category):
     subprocess.run(["chmod", "+x", name], cwd=os.path.join(dir, category))
 
 functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (directories,)), (yay, ())]
-users_packs = []
 
 def main():
     subprocess.run(["sudo", "pacman", "-Syy"])
@@ -103,10 +91,6 @@ def main():
     for function, args in functions:
         function(*args)
     print("CONFIGS ADDED")
-    
-    # extra_packs = input("Would you like to add some of your own preferred packages?(y/n)\n> ").lower()
-    # if extra_packs == "y":
-    #     list_extra_packs
 
     # starts swww daemon so that wallpaper can be changed later
     subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
@@ -124,6 +108,9 @@ def main():
     # making sure the script can run
     mod("waykill.sh", config_dir, "ansscripts")
 
+    # adds the systemd files at .config/systemd/user/ and enables them to run at the start
+    systemd_files(systemd_services_files)
+
     # this is a theme for mainly dark mode for gtk apps
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
     mod("install.sh", home_dir, "Graphite-gtk-theme")
@@ -132,15 +119,7 @@ def main():
     #icons missing (may or may not add them later)
     
     # adds zsh and oh my zsh to change the theme of kitty
-    yes_zsh = input("Add zsh?(y/n)\n> ").lower()   
-    if yes_zsh == "y":
-        subprocess.run(["sudo", "pacman", "-S", "--noconfirm", "zsh"])
-        subprocess.run(["sudo", "chsh", "-s", "/bin/zsh"])
-        cmd = 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-        subprocess.run(cmd, shell=True)
-    elif yes_zsh == "n":
-        print("skipping")
-    else:
-        print("Not a valid answer.")
+    zsh_setup()
     
-main()
+if __name__ == "__main__":
+    main()
