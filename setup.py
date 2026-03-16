@@ -100,7 +100,6 @@ def main():
     subprocess.run(["sudo", "systemctl", "start", "swayosd-libinput-backend.service"])
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
-    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
     
     # adds ly if True
     add_ly()
@@ -109,7 +108,8 @@ def main():
     mod("waykill.sh", config_dir, "ansscripts")
 
     # adds the systemd files at .config/systemd/user/ and enables them to run at the start
-    systemd_files(systemd_services_files)
+    for file in systemd_services_files:
+        systemd_files(file)
 
     # this is a theme for mainly dark mode for gtk apps
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
@@ -117,6 +117,7 @@ def main():
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     
     #icons missing (may or may not add them later)
+    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
     
     # adds zsh and oh my zsh to change the theme of kitty
     zsh_setup()

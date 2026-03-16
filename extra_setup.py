@@ -6,7 +6,7 @@ def systemd_files(file):
     from setup import config_dir, setup_dir
     systemd_dir = os.path.join(config_dir, "systemd", "user")
     os.makedirs(systemd_dir, exist_ok=True)
-    shutil.move(os.path.join(setup_dir, "extra", file), systemd_dir)
+    shutil.move(os.path.join(setup_dir, "systemd", file), systemd_dir)
 
     subprocess.run(["systemctl", "--user", "daemon-reload"], capture_output=True)
     subprocess.run(["systemctl", "--user", "enable", file], capture_output=True)
