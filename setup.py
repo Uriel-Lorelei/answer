@@ -117,7 +117,7 @@ def main():
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     
     #icons missing (may or may not add them later)
-    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "cyber.jpeg"), "--transition-type=center"])
+    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "evening_sky.png"), "--transition-type=center"])
     
     # adds zsh and oh my zsh to change the theme of kitty
     zsh_setup()
