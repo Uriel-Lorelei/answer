@@ -1,9 +1,10 @@
-font=JetBrainsMono Nerd Font 15
-background-color=#1e1e2e
-text-color=#f498de
-border-color=#04375C
+font=JetBrainsMono Nerd Font 13
+background-color=#050B11
+text-color=#F6C8BF
+border-color=#CED8E1
 progress-color=#db7093
 border-size=4
+border-radius=10
 margin=10
 width=450
 padding=15
