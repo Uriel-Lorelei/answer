@@ -16,8 +16,8 @@ wallpapers = os.listdir(wall_path)
 wallpapers.sort()
 
 def current_wall():
-    # swww query gets the current wallpaper and search gets the exact name of the wallpaper
-    check = subprocess.run(["swww", "query"], capture_output=True, text=True)
+    # awww query gets the current wallpaper and search gets the exact name of the wallpaper
+    check = subprocess.run(["awww", "query"], capture_output=True, text=True)
     search = re.search(r'(?<=wallpapers/).*', check.stdout) # gives everything after 'wallpapers/'
     return search
 
@@ -35,9 +35,9 @@ for w in range(len(wallpapers)):
 # changes the wallpaper!
 if wall_list == []:
     wall_list = wallpapers
-    subprocess.run(["swww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
+    subprocess.run(["awww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
 else:
-    subprocess.run(["swww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
+    subprocess.run(["awww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
 
 # to replace the wallpaper in hyprlock
 curr_wall = current_wall().group(0)
