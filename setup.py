@@ -11,7 +11,7 @@ directories = ["waybar", "mako", "kitty", "fastfetch", "nwg-look", "hypr", "wofi
 systemd_services_files = os.listdir(os.path.join(setup_dir, "systemd"))
 
 # packages to add using pacman
-packages = ["mesa", "lib32-mesa", "vulkan-icd-loader", "lib32-vulkan-icd-loader", "linux-headers", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "seahorse", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "cliphist", "kitty", "wofi", "waybar", "thunar", "swww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "hyprshot", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "python-sympy", "swayosd", "ly", "libmtp", "gvfs-mtp", "android-udev", "ttf-jetbrains-mono-nerd"]
+packages = ["mesa", "lib32-mesa", "vulkan-icd-loader", "lib32-vulkan-icd-loader", "linux-headers", "hyprland", "wayland", "tk", "kate", "imagemagick", "base-devel", "yt-dlp", "wl-clip-persist", "zip", "unzip", "polkit", "tar", "xdg-user-dirs", "xdg-user-dirs-gtk", "fzf", "tmux", "upower", "htop", "btop", "libreoffice-fresh", "seahorse", "audacious", "cava", "xdg-desktop-portal", "xdg-desktop-portal-hyprland", "xdg-desktop-portal-gtk", "gvfs", "wl-clipboard", "cliphist", "kitty", "wofi", "waybar", "thunar", "awww", "nwg-look", "power-profiles-daemon", "mako", "network-manager-applet", "mpv", "feh", "code", "pipewire", "pipewire-pulse", "pipewire-alsa", "alsa-utils", "wireplumber", "pavucontrol", "brightnessctl", "ufw", "bluez", "bluez-utils", "blueman", "hyprlock", "hyprshot", "noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "ttf-liberation", "ttf-dejavu", "python-sympy", "swayosd", "ly", "libmtp", "gvfs-mtp", "android-udev", "ttf-jetbrains-mono-nerd"]
 
 # packages to add using yay
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
@@ -92,8 +92,8 @@ def main():
         function(*args)
     print("CONFIGS ADDED")
 
-    # starts swww daemon so that wallpaper can be changed later
-    subprocess.Popen(["swww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
+    # starts awww daemon so that wallpaper can be changed later
+    subprocess.Popen(["awww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     
     # sets up sway-osd (responsible for changing volumes and brightness) and changes wallpaper
     subprocess.run(["sudo", "systemctl", "enable", "swayosd-libinput-backend.service"])
@@ -117,7 +117,7 @@ def main():
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
     
     #icons missing (may or may not add them later)
-    subprocess.run(["swww", "img", os.path.join(config_dir, "images", "wallpapers", "evening_sky.png"), "--transition-type=center"])
+    subprocess.run(["awww", "img", os.path.join(config_dir, "images", "wallpapers", "evening_sky.png"), "--transition-type=center"])
     
     # adds zsh and oh my zsh to change the theme of kitty
     zsh_setup()
