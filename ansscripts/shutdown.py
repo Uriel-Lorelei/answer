@@ -3,7 +3,7 @@ import tkinter.font as tkFont
 import subprocess
 
 def shutdown_now(event):
-    subprocess.run(["shutdown", "now"])
+    subprocess.run(["systemctl", "poweroff"])
 
 def check_ans(event=None):
     ans = entry.get()
@@ -40,6 +40,6 @@ entry.bind("<Return>", check_ans)
 # button = tk.Button(root, text="YES", font=button_font, bg="#5B8D72", fg="#DAD9CA")
 # button.pack(padx=10, pady=8)
 
-root.bind("y", shutdown_now)
+root.bind("y".lower(), shutdown_now)
 
 root.mainloop()

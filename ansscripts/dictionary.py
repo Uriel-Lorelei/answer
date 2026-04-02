@@ -5,7 +5,7 @@ import subprocess
 word = input("Word --> ")
 
 if word == "":
-    print("Write a word to get the definition.")
+    print("TRY AGAIN")
 else:
     base_url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
     response = requests.get(base_url)

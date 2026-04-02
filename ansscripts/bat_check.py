@@ -20,7 +20,7 @@ def main():
     percentage = int(get_percentage())
     status = get_status()
 
-    if percentage < 20 and status == "Discharging":
+    if percentage < 30 and status == "Discharging":
         notify(percentage)
         time.sleep(300)
     else:
