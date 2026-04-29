@@ -35,9 +35,9 @@ for w in range(len(wallpapers)):
 # changes the wallpaper!
 if wall_list == []:
     wall_list = wallpapers
-    subprocess.run(["awww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
+    subprocess.run(["awww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=random"])
 else:
-    subprocess.run(["awww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=center"])
+    subprocess.run(["awww", "img", os.path.join(wall_path, wall_list[0]), "--transition-type=random"])
 
 # to replace the wallpaper in hyprlock
 curr_wall = current_wall().group(0)
