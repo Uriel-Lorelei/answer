@@ -14,6 +14,6 @@ Make sure to use this configuration on fresh hyprland install for intended perfo
 
 This configuration uses waybar, mako, wofi, kitty, swayosd, ly, and nwg-look for configuration. 
 Most of the configurations done are just basic changes and there are only few external additions.
-Wallpapers are mostly from another pre-configuration of Hyprland called Hyde and others are my own addition found on the Internet.
+Wallpapers are mostly images which were found on the Internet.
 
 The keybindings for this configuration are in 'keybindings.md'.
