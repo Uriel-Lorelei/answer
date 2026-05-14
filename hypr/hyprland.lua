@@ -1,4 +1,4 @@
--- If you wish to edit any thing else, you can go to the below module.lua and change them there.
+-- If you wish to edit any thing else, you can go to the below on: module.lua and change them there.
 -- Also you can add your own extra changes to userprefs.lua.
 
 
