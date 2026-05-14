@@ -1,69 +1,25 @@
-// This is the list of key-bindings used in this configuration. meow
+## Important Ones
 
-SUPER = "Windows" key
+Terminal -> Super + T
+Kill a Window -> Super + Q
+Shutdown -> Super + Shift + M
+File Manager (Thunar Default) -> Super + E
+Menu (Wofi) -> Super + A
+Browser (Librewolf) -> Super + B
 
-// to kill an active program
+## Extras 
 
-[KILL-ACTIVE] = SUPER + Q
-
-// to shutdown
-
-[SHUTDOWN] = SUPER + SHIFT + M
-
-// ESSENTIALS
-
-[TERMINAL] = SUPER + T
-
-[BROWSER] = SUPER + B
-
-[FILE-MANAGER] = SUPER + E
-
-[VS-CODE] = SUPER + O
-
-[STEAM] = SUPER + G
-
-// to see and select programs
-
-[WOFI] = SUPER + A
-
-// to connect to the internet using the Terminal
-
-[nm-tui] = SUPER + C
-
-// changing workspaces are same as default hyprland set-up
-
-[LOCK-SCREEN] = SUPER + L
-
-[FULL-SCREEN] = SUPER + F
-
-// to float and move windows
-
-[FLOAT] = SUPER + W
-
-[PSEUDO-FLOAT] = SUPER + P
-
-[FULL-SCREEN] = SUPER + F
-
-[TOGGLE-SPLIT] = SUPER + J
-
-// to change the wallpapers 
-
-[NEXT-WALLPAPER] = SUPER + SHIFT + 'Right Arrow Key'
-
-[PREVIOUS-WALLPAPER] = SUPER + SHIFT + 'Left Arrow Key'
-
-Note: Wallpapers are in '~/.config/images/wallpapers'. To add your own wallpaper, you can move them to this directory.
-
-// to reload the waybar
-
-[WAYBAR] = SUPER + R
-
-// Task Manager Equivalent (sort of)
-
-[HTOP] = SUPER + N
-
-[BTOP] = SUPER + SHIFT + N
-
-// extremely basic calculator
-
-[CALCULATOR] = SUPER + SHIFT + C
+Float -> Super + W
+Pseudo -> Super + P
+VSCode -> Super + O
+Internet / Wifi -> Super + C
+HyprLock -> Super + L
+FullScreen -> Super + F
+Steam -> Super + G
+Btop -> Super + Shift + N
+Screenshot of the whole screen -> PRINT
+Screenshot of the active window -> Super + PRINT
+Clipboard (uses wofi) -> Super + V
+Reload Waybar -> Super + R
+Change wallpaper (next) -> Super + SHIFT + right arrow key
+Change wallpaper (previous) -> Super + SHIFT + left arrow key
