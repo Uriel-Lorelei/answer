@@ -379,6 +379,12 @@ hl.window_rule({
 
     no_focus = true,
 })
+hl.config({
+    xwayland = {
+        enabled = true,
+        force_zero_scaling = true
+    }
+})
 hl.window_rule({
     name = "tk-apps",
     match = {
