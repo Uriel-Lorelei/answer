@@ -42,6 +42,7 @@
     "clock": {
         // "timezone": "America/New_York",
         "format": "{:%a %H:%M}",
+        "on-click": "~/.config/ansscripts/nepali_date.py",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%a, %d %b, %H:%M}"
     },
@@ -84,7 +85,7 @@
         "default": "",
         "performance": "",
         "balanced": "",
-        "power-saver": ""
+        "power-saver": ""	
       }
     },
     "network": {

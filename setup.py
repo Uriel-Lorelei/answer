@@ -16,6 +16,9 @@ packages = ["mesa", "lib32-mesa", "vulkan-icd-loader", "lib32-vulkan-icd-loader"
 # packages to add using yay
 yay_packs = ["bibata-cursor-theme-bin", "librewolf-bin"]
 
+# scripts that require chmod
+need_mod = ["nepali_date.py", "waykill.sh"]
+
 def install_package(packages: list):
     for package in packages:
         check = subprocess.run(["pacman", "-Q", package], capture_output=True, text=True)
@@ -38,7 +41,7 @@ def from_yay(yay_packs):
                 print(f"ERROR: While installing -{yp}-,this happened:\n{install.stderr}")
 
 def copy(dir):
-    for d in dir:    
+    for d in dir:
         os.system(f"cp -r {os.path.join(setup_dir, d)} {config_dir}")
 
 def backup(dir):
@@ -86,7 +89,7 @@ functions = [(install_package, (packages,)), (backup, (directories,)), (copy, (d
 
 def main():
     subprocess.run(["sudo", "pacman", "-Syy"])
-    
+
     # perform all downloads and moves the required configs to .config
     for function, args in functions:
         function(*args)
@@ -94,18 +97,19 @@ def main():
 
     # starts awww daemon so that wallpaper can be changed later
     subprocess.Popen(["awww-daemon"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
-    
+
     # sets up sway-osd (responsible for changing volumes and brightness) and changes wallpaper
     subprocess.run(["sudo", "systemctl", "enable", "swayosd-libinput-backend.service"])
     subprocess.run(["sudo", "systemctl", "start", "swayosd-libinput-backend.service"])
     subprocess.Popen(["swayosd-server"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, stdin=subprocess.DEVNULL, start_new_session=True)
     time.sleep(1)
-    
+
     # adds ly if True
     add_ly()
 
     # making sure the script can run
-    mod("waykill.sh", config_dir, "ansscripts")
+    for script in need_mod:
+        mod(script, config_dir, "ansscripts")
 
     # adds the systemd files at .config/systemd/user/ and enables them to run at the start
     for file in systemd_services_files:
@@ -115,12 +119,12 @@ def main():
     subprocess.run(["git", "clone", "https://github.com/vinceliuice/Graphite-gtk-theme.git"], cwd=home_dir)
     mod("install.sh", home_dir, "Graphite-gtk-theme")
     subprocess.run(["./install.sh", "-c", "dark", "-s", "standard", "-s", "compact", "-l", "--tweaks", "black", "rimless"], cwd=os.path.join(home_dir, "Graphite-gtk-theme"))
-    
+
     #icons missing (may or may not add them later)
     subprocess.run(["awww", "img", os.path.join(config_dir, "images", "wallpapers", "evening_sky.png"), "--transition-type=center"])
-    
+
     # adds zsh and oh my zsh to change the theme of kitty
     zsh_setup()
-    
+
 if __name__ == "__main__":
     main()
