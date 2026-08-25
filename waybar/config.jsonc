@@ -89,7 +89,8 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ",
+//        "format-wifi": "{essid} ",
+        "format-wifi": "⚞^. .^⚟",
         "tooltip": true,
         // "format-ethernet": "{ipaddr}/{cidr} ",
         // "format-ethernet": "{essid}",
@@ -98,7 +99,8 @@
         // "format-wifi": "{ifname} ",
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "Disconnected ⚠",
+//        "format-disconnected": "Disconnected ⚠",
+        "format-disconnected": "(╥﹏╥)",
         // "format-alt": "{ifname}: {ipaddr}/{cidr}",
         "on-click": "nm-connection-editor"
     },
